@@ -11,6 +11,7 @@
 using namespace Automation::BDaq;
 
 #define deviceDescription L"PCI-1711,BID#0"
+//#define deviceDescription L"DemoDevice,BID#0"
 
 userinterface::userinterface(QWidget *parent) :
     QMainWindow(parent),
@@ -46,7 +47,7 @@ userinterface::userinterface(QWidget *parent) :
 //    _timer->stop();
 
 
-//    drawgraph_test();
+    drawgraph_test();
 
 //    scaledData = NULL;
 //    waveformAiCtrl = WaveformAiCtrl::Create();
@@ -80,9 +81,23 @@ void userinterface::drawgraph_test()
     //设置属性可缩放，移动
     ui->customPlot_figure->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 
+    QPen pen1;
+    pen1.setWidth(2);   //设置选中时的线宽 建议宽度设为1,如果数据量很大,界面会卡顿
+    pen1.setColor(Qt::blue);
+
+    QPen pen2;
+    pen2.setWidth(2);   //设置选中时的线宽 建议宽度设为1,如果数据量很大,界面会卡顿
+    pen2.setColor(Qt::red);
+
+    QPen pen3;
+    pen3.setWidth(2);   //设置选中时的线宽 建议宽度设为1,如果数据量很大,界面会卡顿
+    pen3.setColor(Qt::green);
+//    m_Multichannel->graph(0)->setPen(pen);   //这种方式不如下面的方便,屏蔽
+
     QCPCurve *curGraph1 = new QCPCurve(ui->customPlot_figure->xAxis, ui->customPlot_figure->yAxis);
 //    QCPCurve * curGraph1 = ui->customPlot_figure->addGraph();
-    curGraph1->setPen(QPen(Qt::blue));
+//    curGraph1->setPen(QPen(Qt::blue));
+    curGraph1->setPen(pen1);
 //    curGraph1->setLineStyle(QCPGraph::lsNone);
 //    curGraph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 2));
     curGraph1->setName("Fermat's Spiral1");
@@ -90,23 +105,30 @@ void userinterface::drawgraph_test()
 
     QCPCurve *curGraph2 = new QCPCurve(ui->customPlot_figure->xAxis, ui->customPlot_figure->yAxis);
 //    QCPCurve * curGraph1 = ui->customPlot_figure->addGraph();
-    curGraph2->setPen(QPen(Qt::red));
+//    curGraph2->setPen(QPen(Qt::red));
+    curGraph2->setPen(pen2);
 //    curGraph1->setLineStyle(QCPGraph::lsNone);
 //    curGraph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 2));
     curGraph2->setName("Fermat's Spiral2");
 
     QCPCurve *curGraph3 = new QCPCurve(ui->customPlot_figure->xAxis, ui->customPlot_figure->yAxis);
 //    QCPCurve * curGraph1 = ui->customPlot_figure->addGraph();
-    curGraph3->setPen(QPen(Qt::green));
+//    curGraph3->setPen(QPen(Qt::green));
+    curGraph3->setPen(pen3);
 //    curGraph1->setLineStyle(QCPGraph::lsNone);
 //    curGraph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 2));
     curGraph3->setName("Fermat's Spiral3");
 
     ui->customPlot_figure->xAxis->setRange(-15,15);
+    ui->customPlot_figure->xAxis->setLabel("S(mm)");
+    ui->customPlot_figure->xAxis->setLabelFont(QFont(font().family(), 12, QFont::Bold));
 //    ui->cusplot_3->xAxis->setNumberFormat("f");
 //    ui->cusplot_3->rescaleAxes();
     ui->customPlot_figure->yAxis->setRange(-800, 1400);
+    ui->customPlot_figure->yAxis->setLabel("F(N)");
+    ui->customPlot_figure->yAxis->setLabelFont(QFont(font().family(), 12, QFont::Bold));
 //    qDebug() << key;
+
 
    // 逐行读取主表
     for (int i = 2; i <= intRow; i++)
@@ -270,6 +292,9 @@ void userinterface::slotTimeout_F_MM()
 
 void userinterface::on_ButtonStartCollect_clicked()
 {
+//    ui->customPlot_figure->clearGraphs();
+    ui->customPlot_figure->clearPlottables();
+    ui->customPlot_figure->replot();
 //    DeviceInformation devInfo(deviceDescription);
 //    waveformAiCtrl->setSelectedDevice(devInfo);
 //    ErrorCode errorCode = waveformAiCtrl->Start();
@@ -338,10 +363,14 @@ void userinterface::on_ButtonStartCollect_clicked()
     ui->customPlot_figure->setBackground(Qt::white);
     //设置属性可缩放，移动
     ui->customPlot_figure->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    QPen pen1;
+    pen1.setWidth(2);   //设置选中时的线宽 建议宽度设为1,如果数据量很大,界面会卡顿
+    pen1.setColor(Qt::blue);
+
 
     QCPCurve *curGraph1 = new QCPCurve(ui->customPlot_figure->xAxis, ui->customPlot_figure->yAxis);
 //    QCPCurve * curGraph1 = ui->customPlot_figure->addGraph();
-    curGraph1->setPen(QPen(Qt::blue));
+    curGraph1->setPen(pen1);
 //    curGraph1->setLineStyle(QCPGraph::lsNone);
 //    curGraph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 2));
     curGraph1->setName("Fermat's Spiral1");
@@ -355,12 +384,13 @@ void userinterface::on_ButtonStartCollect_clicked()
         curGraph1->addData(dataBuffer[i+sectionLength],dataBuffer[i]*500);
     }
 
-
+    ui->customPlot_figure->replot();
     // Step 6: close device, release any allocated resource before quit.
     ctrl->Cleanup();
 
     // Step 7: destroy the object
     ctrl->Dispose();
+
 }
 
 void userinterface::on_ButtonConfigure_clicked()
