@@ -14,7 +14,7 @@ AI_AsynchronousOneBufferedAi::AI_AsynchronousOneBufferedAi(QWidget *parent, Qt::
 
 	//Set the background image for the main frame.
 	this->setAutoFillBackground(true);
-    QPixmap pixMap(":/new/prefix1/Background.png");
+    QPixmap pixMap(":/images/Background.png");
 //    QPixmap pixMap("D:\\ProgramSpace\\Qt\\Software\\Software_618_Project\\Resources\\ResourcesBackground.png");
 	QPalette backPalette;
 	backPalette.setBrush(this->backgroundRole(), QBrush(pixMap));

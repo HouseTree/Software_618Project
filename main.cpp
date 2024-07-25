@@ -4,9 +4,19 @@
 #include "asynchronousonebufferedai.h"
 
 #include <QApplication>
+#include <QTextCodec>
 
 int main(int argc, char *argv[])
 {
+//    //更改编码
+    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+    QTextCodec::setCodecForLocale(codec);
+
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName(QTextCodec::codecForLocale()->name()));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName(QTextCodec::codecForLocale()->name()));
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName(QTextCodec::codecForLocale()->name()));
+
+
     QApplication a(argc, argv);
 //    MainWindow w;
 //    w.show();

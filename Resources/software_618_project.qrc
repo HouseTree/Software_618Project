@@ -1,5 +1,33 @@
 <RCC>
-    <qresource prefix="/new/prefix1">
+    <qresource prefix="/images">
+        <file>打开文件.png</file>
+        <file>复制.png</file>
+        <file>剪切.png</file>
+        <file>粘贴.png</file>
+        <file>调节行程.png</file>
+        <file>software_618_project.qrc</file>
+        <file>寻上止点.png</file>
+        <file>测气弹簧.png</file>
+        <file>实验参数.png</file>
+        <file>查看日志.png</file>
+        <file>手动试车.png</file>
+        <file>输出EXL.png</file>
+        <file>登陆系统</file>
+        <file>登陆.png</file>
+        <file>浏览实验.png</file>
+        <file>力零点.png</file>
+        <file>手动实验.png</file>
+        <file>减震器库.png</file>
+        <file>速度参数.png</file>
+        <file>停止实验.png</file>
+        <file>退出.png</file>
+        <file>退出登陆.png</file>
+        <file>系统参数.png</file>
+        <file>寻下止点.png</file>
+        <file>作业报表.png</file>
         <file>Background.png</file>
+        <file>ledHigh.png</file>
+        <file>ledLow.png</file>
+        <file>ledGray.png</file>
     </qresource>
 </RCC>

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui axcontainer printsupport
+QT       += core gui axcontainer printsupport widgets
 CONFIG   += qaxcontainer
 QMAKE_CXXFLAGS+=-std=c++0x
 
@@ -38,6 +38,12 @@ FORMS    += mainwindow.ui \
     userinterface.ui \
     configuredialog.ui \
     asynchronousonebufferedai.ui
+
+#msvc {
+#    QMAKE_CFLAGS += /utf-8
+#    QMAKE_CXXFLAGS += /utf-8
+#}
+#QMAKE_CXXFLAGS += /utf-8
 
 unix:win32: LIBS += -lbiodaq
 

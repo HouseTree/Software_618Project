@@ -30,6 +30,10 @@ public:
     void ConfigureDevice();
 
     static void BDAQCALL OnStoppedEvent(void * sender, BfdAiEventArgs * args, void * userParam);
+    void initTabs();
+    void setText(int row, int colum, const QString &text, int font_size = 11, bool is_black = false);
+    void init_LED_Vs();
+    void Init_LED();
 
 signals:
     void UpdateButton();
@@ -40,6 +44,9 @@ private slots:
     void on_ButtonStartCollect_clicked();
 
     void on_ButtonConfigure_clicked();
+
+
+    void on_actionManu_triggered();
 
 private:
     Ui::userinterface *ui;
